@@ -11,13 +11,19 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                sh 'terraform init'
+                sh 'cd /var/soure-file;terraform init'
+            }
+        }
+
+        stage('Terraform validate') {
+            steps {
+                sh 'cd /var/soure-file;terraform validate'
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                sh 'terraform plan -out=tfplan'
+                sh 'cd /var/soure-file;terraform plan'
             }
         }
 
@@ -26,7 +32,7 @@ pipeline {
                 branch 'main' // Apply only on the main branch
             }
             steps {
-                sh 'terraform apply -auto-approve tfplan'
+                sh 'cd /var/soure-file;terraform apply'
             }
         }
 
