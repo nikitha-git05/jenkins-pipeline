@@ -7,10 +7,11 @@ pipeline {
             steps {
                 script{
                     try {
-                        sh 'git clone \'https://github.com/nikitha-git05/soure-file.git\' /var/soure-file'  // Replace with your repo
+                        sh 'git clone \'https://github.com/nikitha-git05/soure-file.git\' /var/repo/soure-file'  // Replace with your repo
                     }
                     catch (Exception e) {
-                        sh 'cd /var/soure-file;git config --global --add safe.directory /var/soure-file;git pull' 
+                        sh 'whoami'
+                        sh 'cd /var/soure-file;git config --global --add safe.directory /var/repo/soure-file;git pull' 
                     }
                 }
             }
@@ -18,19 +19,19 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                sh 'cd /var/soure-file;terraform init'
+                sh 'cd /var/repo/soure-file;terraform init'
             }
         }
 
         stage('Terraform validate') {
             steps {
-                sh 'cd /var/soure-file;terraform validate'
+                sh 'cd /var/repo/soure-file;terraform validate'
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                sh 'cd /var/soure-file;terraform plan'
+                sh 'cd /var/repo/soure-file;terraform plan'
             }
         }
 
@@ -39,7 +40,7 @@ pipeline {
                 branch 'main' // Apply only on the main branch
             }
             steps {
-                sh 'cd /var/soure-file;terraform apply'
+                sh 'cd /var/repo/soure-file;terraform apply'
             }
         }
 
