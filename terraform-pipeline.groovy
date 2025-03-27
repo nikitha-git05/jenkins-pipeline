@@ -11,7 +11,7 @@ pipeline {
                     }
                     catch (Exception e) {
                         sh 'whoami'
-                        sh 'cd /var/soure-file;git config --global --add safe.directory /var/repo/soure-file;git pull' 
+                        sh 'cd /var/repo/soure-file;git config --global --add safe.directory /var/repo/soure-file;git pull' 
                     }
                 }
             }
