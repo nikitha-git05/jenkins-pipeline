@@ -10,7 +10,7 @@ pipeline {
                         sh 'git clone \'https://github.com/nikitha-git05/soure-file.git\' /var/soure-file'  // Replace with your repo
                     }
                     catch (Exception e) {
-                        sh 'cd /var/soure-file;git pull' 
+                        sh 'cd /var/soure-file;git config --global --add safe.directory /var/soure-file;git pull' 
                     }
                 }
             }
