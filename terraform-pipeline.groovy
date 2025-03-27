@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git clone 'https://github.com/nikitha-git05/soure-file.git' /var/soure-file  // Replace with your repo
+                sh 'git clone \'https://github.com/nikitha-git05/soure-file.git\' /var/soure-file'  // Replace with your repo
             }
         }
 
