@@ -5,11 +5,13 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                try {
-                    sh 'git clone \'https://github.com/nikitha-git05/soure-file.git\' /var/soure-file'  // Replace with your repo
-                }
-                catch (Exception e) {
+                script{
+                    try {
+                        sh 'git clone \'https://github.com/nikitha-git05/soure-file.git\' /var/soure-file'  // Replace with your repo
+                    }
+                    catch (Exception e) {
                         sh 'cd /var/soure-file;git pull' 
+                    }
                 }
             }
         }
