@@ -5,11 +5,9 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/nikitha-git05/soure-file.git'  // Replace with your repo
+                git clone 'https://github.com/nikitha-git05/soure-file.git' /var/soure-file  // Replace with your repo
             }
         }
-
-       
 
         stage('Terraform Init') {
             steps {
