@@ -1,17 +1,19 @@
-pipeline {
+    pipeline {
     agent any  // Runs on any available Jenkins agent
 
+    environment {
+        REPO_URL = 'https://github.com/nikitha-git05/soure-file.git'
+        REPO_DIR = '/var/repo/soure-file'
+    }
 
     stages {
         stage('Checkout Code') {
             steps {
-                script{
-                    try {
-                        sh 'git clone \'https://github.com/nikitha-git05/soure-file.git\' /var/repo/soure-file'  // Replace with your repo
-                    }
-                    catch (Exception e) {
-                        sh 'whoami'
-                        sh 'cd /var/repo/soure-file;git config --global --add safe.directory /var/repo/soure-file;git pull' 
+                script {
+                    if (fileExists(REPO_DIR)) {
+                        sh "cd ${REPO_DIR} && git pull"
+                    } else {
+                        sh "git clone ${REPO_URL} ${REPO_DIR}"
                     }
                 }
             }
@@ -19,32 +21,38 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                sh 'cd /var/repo/soure-file;terraform init'
+                dir(REPO_DIR) {
+                    sh 'terraform init'
+                }
             }
         }
 
-        stage('Terraform validate') {
+        stage('Terraform Validate') {
             steps {
-                sh 'cd /var/repo/soure-file;terraform validate'
+                dir(REPO_DIR) {
+                    sh 'terraform validate'
+                }
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                sh 'cd /var/repo/soure-file;terraform plan'
+                dir(REPO_DIR) {
+                    sh 'terraform plan'
+                }
             }
         }
 
         stage('Terraform Apply') {
             when {
-                branch 'main' // Apply only on the main branch
+                branch 'main'  // Apply only on the main branch
             }
             steps {
-                sh 'cd /var/repo/soure-file;terraform apply'
+                dir(REPO_DIR) {
+                    sh 'terraform apply -auto-approve'
+                }
             }
         }
-
-        
     }
 
     post {
