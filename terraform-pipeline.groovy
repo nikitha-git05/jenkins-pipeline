@@ -19,6 +19,14 @@
             }
         }
 
+        stage('Initialise AWS') {
+            steps {
+                dir(REPO_DIR) {
+                    sh 'aws configure set aws_access_key_id "AKIAXZ5NF342O2ERRYML" --profile jenkins && aws configure set aws_secret_access_key "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" --profile jenkins && aws configure set region "us-east-2" --profile jenkins && aws configure set output "json" --profile jenkins'
+                }
+            }
+        }
+
         stage('Terraform Init') {
             steps {
                 dir(REPO_DIR) {
