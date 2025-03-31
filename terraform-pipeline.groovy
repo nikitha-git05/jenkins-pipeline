@@ -46,7 +46,7 @@
         stage('Terraform Plan') {
             steps {
                 dir(REPO_DIR) {
-                    sh 'terraform plan'
+                    sh 'terraform plan -out aws.tfstate'
                 }
             }
         }
