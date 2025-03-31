@@ -52,9 +52,6 @@
         }
 
         stage('Terraform Apply') {
-            when {
-                branch 'main'  // Apply only on the main branch
-            }
             steps {
                 dir(REPO_DIR) {
                     sh 'terraform apply "aws.tfstate" -auto-approve'
