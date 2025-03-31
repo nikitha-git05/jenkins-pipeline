@@ -57,7 +57,7 @@
             }
             steps {
                 dir(REPO_DIR) {
-                    sh 'terraform apply -auto-approve'
+                    sh 'terraform apply "aws.tfstate" -auto-approve'
                 }
             }
         }
