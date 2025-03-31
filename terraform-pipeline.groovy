@@ -59,13 +59,4 @@
             }
         }
     }
-
-    post {
-        always {
-            archiveArtifacts artifacts: '**/*.tfstate', fingerprint: true
-        }
-        failure {
-            echo 'Terraform execution failed! Check logs for details.'
-        }
-    }
 }
