@@ -38,6 +38,7 @@
         stage('Terraform Plan') {
             steps {
                 dir(REPO_DIR) {
+                    sh 'export TF_LOG=”DEBUG”'
                     sh 'terraform plan'
                 }
             }
